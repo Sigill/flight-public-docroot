@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteBase /~you/flight-public-docroot
+
+# The app.php script that will actually be used is the one in the folder
+# corresponding to a request to the RewriteBase.
+
+# If the request is empty, do not serve the directory as-is,
+# as it will default to some index.? or a listing of the directory.
+RewriteRule ^$ app.php [QSA,END]
+
+# If the request does not match an existing file or directory,
+# redirect it to the app.php script.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ app.php [QSA,END]
+
+# An existing file or directory will be served as-is.
